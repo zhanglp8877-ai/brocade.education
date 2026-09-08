@@ -1,0 +1,13 @@
+{
+  "name": "brocade-education",
+  "version": "1.0.0",
+  "private": true,
+  "description": "锦泓留学 Brocade Education 咨询平台原型",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "start": "node --env-file-if-exists=.env server.js"
+  }
+}
