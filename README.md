@@ -28,7 +28,7 @@ OPENAI_BASE_URL=https://api.deepseek.com
 
 保存环境变量后必须重新部署，旧部署不会自动获得新变量。部署完成后访问 `https://你的域名/api/health`，应返回 `"ok":true` 和 `"apiConfigured":true`；该诊断接口不会返回密钥。若 `apiConfigured` 为 `false`，说明环境变量未添加到当前 Production/Preview 环境。
 
-构建命令会检查代码并把 `public` 中的静态源码复制到新生成的 `dist` 目录；`vercel.json` 已将 Output Directory 设为 `dist`，因此不会再出现构建成功却找不到输出目录的问题。`api` 目录交给 Vercel 自动识别，不在 `functions` 中重复声明，避免上传目录或 Root Directory 不一致时触发 `Unmatched function pattern`。若你的 Vercel 套餐允许的函数时长不足以完成较长的 DeepSeek 规划任务，需要在 Vercel 控制台提高 Function Max Duration、缩短 AI 输出，或改用后台任务加轮询的架构。
+`npm run build` 不依赖额外脚本文件，会直接把 `public` 中的静态源码复制到新生成的 `dist` 目录；`vercel.json` 已将 Output Directory 设为 `dist`，因此不会再出现构建成功却找不到输出目录的问题。`api` 目录交给 Vercel 自动识别，不在 `functions` 中重复声明，避免上传目录或 Root Directory 不一致时触发 `Unmatched function pattern`。若你的 Vercel 套餐允许的函数时长不足以完成较长的 DeepSeek 规划任务，需要在 Vercel 控制台提高 Function Max Duration、缩短 AI 输出，或改用后台任务加轮询的架构。
 
 如果仍然提示缺少输出目录，请检查 Vercel 的 **Settings → Build and Deployment → Root Directory**：上传 `xia` 文件夹本身时应留空；连接一个包含 `xia` 子目录的 Git 仓库时应填写 `xia`。Root Directory 必须是能够直接看到 `package.json`、`vercel.json`、`public` 和 `api` 的目录。不要把 Root Directory 设置为 `public` 或 `dist`。
 
